@@ -12,10 +12,8 @@ import {
 import { Bar } from "react-chartjs-2";
 import * as THREE from "three";
 
-// Register chart.js modules
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-// Sample tasks data
 const tasks = [
   {
     name: "E-mailové shrnutí",
@@ -82,7 +80,6 @@ const tasks = [
 export default function CalculatorAI() {
   const [employees, setEmployees] = useState<number>(15);
 
-  // Three.js ref
   const bgRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -99,7 +96,6 @@ export default function CalculatorAI() {
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(bgRef.current.clientWidth, bgRef.current.clientHeight);
-    // Force pixelRatio = 1 to prevent blurred text
     renderer.setPixelRatio(1);
     bgRef.current.appendChild(renderer.domElement);
 
@@ -126,7 +122,6 @@ export default function CalculatorAI() {
     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particlesMesh);
 
-    // Animation
     const animate = () => {
       requestAnimationFrame(animate);
       particlesMesh.rotation.y += 0.0008;
@@ -134,7 +129,6 @@ export default function CalculatorAI() {
     };
     animate();
 
-    // Handle resize
     const handleResize = () => {
       if (!bgRef.current) return;
       camera.aspect = bgRef.current.clientWidth / bgRef.current.clientHeight;
@@ -159,11 +153,9 @@ export default function CalculatorAI() {
     (task) => task.hoursBefore * task.improvementFactor * employees
   );
 
-  // Sum across all tasks
   const sumBefore = totalBeforeArray.reduce((acc, val) => acc + val, 0);
   const sumAfter = totalAfterArray.reduce((acc, val) => acc + val, 0);
 
-  // Prepare the data for react-chartjs-2
   const data = {
     labels: tasks.map((t) => t.name),
     datasets: [
@@ -180,7 +172,7 @@ export default function CalculatorAI() {
     ],
   };
 
-  // Valid Easing
+  // Removed the animation block entirely
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -202,33 +194,20 @@ export default function CalculatorAI() {
       x: {
         ticks: {
           color: "#ffffff",
-          font: {
-            size: 12,
-          },
+          font: { size: 12 },
         },
-        grid: {
-          color: "#4B5563",
-        },
+        grid: { color: "#4B5563" },
       },
       y: {
         ticks: {
           color: "#ffffff",
-          font: {
-            size: 12,
-          },
+          font: { size: 12 },
         },
-        grid: {
-          color: "#4B5563",
-        },
+        grid: { color: "#4B5563" },
       },
-    },
-    animation: {
-      duration: 1000,
-      easing: "easeInOutQuad", // CHANGED from "easeInOutCubic"
     },
   };
 
-  // Buttons for increment/decrement
   const incrementEmployees = () =>
     setEmployees((prev) => Math.min(prev + 1, 999));
   const decrementEmployees = () =>
@@ -302,7 +281,6 @@ export default function CalculatorAI() {
         </div>
 
         <div className="relative w-full h-[400px] md:h-[500px] my-12">
-          {/* The chart */}
           <Bar data={data} options={options} redraw />
         </div>
 
