@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+@import 'react-vertical-timeline-component/style.min.css';
+
+
+
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+.slick-slide > div {
+  margin: 0 10px; /* Horizontální mezera mezi kartami */
+}
+
+.slick-list {
+  margin: 0 -10px; /* Kompenzace marginu, aby karty začínaly a končily zarovnané */
+}
+
+
+.slick-dots li button:before {
+  font-size: 10px;
+  line-height: 10px;
+  color: #fff; /* bílá barva */
+  opacity: 0.5;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: #fff; /* bílá barva i pro aktivní tečku */
+}
+
+.slick-prev,
+.slick-next {
+  width: 60px;    /* Zvýšená šířka */
+  height: 60px;   /* Zvýšená výška */
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 50px; /* Zvýšená velikost fontu pro šipky */
+  line-height: 1;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Zakáže horizontální scrollování */
+  
+}
+* {
+  box-sizing: border-box; /* Zahrne padding a border do šířky a výšky elementů */
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+
