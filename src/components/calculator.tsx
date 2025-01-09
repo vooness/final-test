@@ -8,14 +8,14 @@ import {
   BarElement,
   Tooltip,
   Legend,
+  // Optional: import type ChartOptions if you prefer
+  // ChartOptions
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import * as THREE from "three";
 
-// Register chart.js modules
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-// Sample tasks data
 const tasks = [
   {
     name: "E-mailové shrnutí",
@@ -85,9 +85,6 @@ export default function CalculatorAI() {
   // Three.js ref
   const bgRef = useRef<HTMLDivElement | null>(null);
 
-  /**
-   * Three.js Particle Background Setup
-   */
   useEffect(() => {
     if (!bgRef.current || typeof window === "undefined") return;
 
@@ -102,7 +99,6 @@ export default function CalculatorAI() {
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(bgRef.current.clientWidth, bgRef.current.clientHeight);
-    // Force pixelRatio = 1 to prevent blurred text
     renderer.setPixelRatio(1);
     bgRef.current.appendChild(renderer.domElement);
 
@@ -129,7 +125,6 @@ export default function CalculatorAI() {
     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particlesMesh);
 
-    // Animation
     const animate = () => {
       requestAnimationFrame(animate);
       particlesMesh.rotation.y += 0.0008;
@@ -137,7 +132,6 @@ export default function CalculatorAI() {
     };
     animate();
 
-    // Handle resize
     const handleResize = () => {
       if (!bgRef.current) return;
       camera.aspect = bgRef.current.clientWidth / bgRef.current.clientHeight;
@@ -166,7 +160,6 @@ export default function CalculatorAI() {
   const sumBefore = totalBeforeArray.reduce((acc, val) => acc + val, 0);
   const sumAfter = totalAfterArray.reduce((acc, val) => acc + val, 0);
 
-  // Prepare the data for react-chartjs-2
   const data = {
     labels: tasks.map((t) => t.name),
     datasets: [
@@ -183,7 +176,7 @@ export default function CalculatorAI() {
     ],
   };
 
-  // Chart options
+  // **Use a recognized easing** like 'easeInOutQuad', 'linear', 'easeOutCubic', etc.
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -227,11 +220,10 @@ export default function CalculatorAI() {
     },
     animation: {
       duration: 1000,
-      easing: "easeInOutCubic",
+      easing: "easeInOutQuad", // <-- changed from "easeInOutCubic"
     },
   };
 
-  // Handlers for incrementing/decrementing
   const incrementEmployees = () =>
     setEmployees((prev) => Math.min(prev + 1, 999));
 
